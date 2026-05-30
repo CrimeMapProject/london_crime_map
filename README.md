@@ -79,7 +79,7 @@ python crime_map.py
 Creates:
 
 ```text
-[london_crime_map.html](http://localhost:63342/Londra_Suclari_Projesi/london_crime_map.html?_ijt=k5jrd7hu9qpvt0lhs9o5nrm51k)
+http://localhost:63342/Londra_Suclari_Projesi/london_crime_map_filtered.html?_ijt=kes23n6b157b25p5iace2n1lgu
 ```
 
 Open the generated HTML file in your browser to explore crime risk locations.
