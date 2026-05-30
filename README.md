@@ -103,4 +103,4 @@ Open the generated HTML file in your browser to explore crime risk locations.
 
 ## Authors
 
-Developed collaboratively as a crime-risk visualization and urban safety project.
+Developed collaboratively by Arda Yalın Uçar and Mehmet Olgun as a crime-risk visualization and urban safety project.
