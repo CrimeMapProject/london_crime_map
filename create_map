@@ -1,0 +1,46 @@
+import json
+import folium
+
+# 1. Adım: Risk verilerini içeren JSON dosyasını oku
+with open("risk_london.json", "r", encoding="utf-8") as file:
+    results = json.load(file)
+
+# 2. Adım: Haritayı Londra'nın merkez koordinatlarına göre başlat
+# Londra merkez koordinatları yaklaşık olarak 51.5074, -0.1278
+london_map = folium.Map(location=[51.5074, -0.1278], zoom_start=11)
+
+# 3. Adım: Her konumu tek tek dön ve risk seviyesine göre haritaya ekle
+for item in results:
+    lat = item["lat"]
+    lng = item["lng"]
+    street = item["street"]
+    score = item["risk_score"]
+    level = item["risk_level"]
+
+    # Risk seviyesine göre renk belirleme
+    if level == "high":
+        color = "red"        # Kırmızı (Yüksek risk)
+    elif level == "medium":
+        color = "orange"     # Turuncu/Sarı (Orta risk)
+    else:
+        color = "green"      # Yeşil (Düşük risk)
+
+    # Harita üzerinde görünecek baloncuk metni
+    popup_text = f"<b>Sokak:</b> {street}<br><b>Skor:</b> {score}<br><b>Seviye:</b> {level.upper()}"
+
+    # Yuvarlak işaretçiyi (marker) haritaya ekle
+    folium.CircleMarker(
+        location=[lat, lng],
+        radius=6,                # Noktanın büyüklüğü
+        popup=folium.Popup(popup_text, max_width=300),
+        color=color,             # Çizgi rengi
+        fill=True,
+        fill_color=color,        # İç dolgu rengi
+        fill_opacity=0.7         # Opaklık (0 ile 1 arası)
+    ).add_to(london_map)
+
+# 4. Adım: Haritayı tarayıcıda açılacak şekilde HTML olarak kaydet
+output_filename = "london_crime_map.html"
+london_map.save(output_filename)
+
+print(f"🎉 Haritanız başarıyla oluşturuldu! Klasördeki '{output_filename}' dosyasını çift tıklayarak tarayıcınızda açabilirsiniz.")
